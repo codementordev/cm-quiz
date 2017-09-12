@@ -1,10 +1,11 @@
 require 'spec_helper'
 
-RSpec.describe CmQuiz::Review::CreateIdea do
-  describe '#perform' do
+RSpec.describe CmQuiz::Factory::Idea do
+  describe '#create' do
+    let(:jwt) { 'jwt' }
     let(:mock_idea) do
       {
-        content: 'test-content',
+        content: 'the-content',
         impact: 7,
         ease: 8,
         confidence: 9,
@@ -18,23 +19,26 @@ RSpec.describe CmQuiz::Review::CreateIdea do
       end
       api
     end
-    let(:service) do
-      CmQuiz::Review::CreateIdea.new({
-        project_api: project_api
+    let(:factory) do
+      CmQuiz::Factory::Idea.new({
+        project_api: project_api,
+        jwt: jwt
       })
     end
     before :each do
-      factory = double(create: ['jwt', 'refresh_token'])
-      allow(CmQuiz::Factory::User).to receive(:new).and_return(factory)
+      user_factory = double(create: [jwt, 'refresh_token'])
+      allow(CmQuiz::Factory::User).to receive(:new).and_return(user_factory)
     end
 
-    it "should pass test" do
-      test_result = service.perform
+    it "should create idea" do
+      res = factory.create
 
-      expect(test_result).to eq(["post /ideas", true, nil])
+      expect(res['content']).to eq(mock_idea[:content])
+      expect(res['impact']).to eq(mock_idea[:impact])
+      expect(res['ease']).to eq(mock_idea[:ease])
       options = {
         headers: {
-          'x-access-token' => 'jwt'
+          'x-access-token' => jwt
         },
         body: {
           content: mock_idea[:content],

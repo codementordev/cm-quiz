@@ -1,16 +1,15 @@
 require 'securerandom'
-require 'cm_quiz/review_helper'
 
 module CmQuiz
   module Review
-    class LoginUser
-      include ReviewHelper
-
+    class LoginUser < BaseReview
       def initialize(project_api:)
         @project_api = project_api
+        @verb = :post
+        @path = '/access-tokens'
       end
 
-      def perform
+      def run
         name = "codementor-test-#{SecureRandom.hex(5)}"
         email = "#{name}@codementor.io"
         password = "pAssw0rd!"
@@ -26,11 +25,6 @@ module CmQuiz
 
         expect(payload['jwt'].class).to eq(String), '`jwt` should be string'
         expect(payload['refresh_token'].class).to eq(String), '`refresh_token` should be string'
-        build_test_result(self.class)
-      rescue RSpec::Expectations::ExpectationNotMetError => e
-        build_test_result(self.class, false, e.message)
-      rescue => e
-        build_test_result(self.class, false, e.message)
       end
 
       private
@@ -43,7 +37,7 @@ module CmQuiz
           }
         }
 
-        @project_api.request(:post, '/access-tokens', options)
+        @project_api.request(@verb, @path, options)
       end
     end
   end

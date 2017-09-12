@@ -1,16 +1,15 @@
 require 'securerandom'
-require 'cm_quiz/review_helper'
 
 module CmQuiz
   module Review
-    class SignUpUser
-      include ReviewHelper
-
+    class SignUpUser < BaseReview
       def initialize(project_api:)
         @project_api = project_api
+        @verb = :post
+        @path = '/users'
       end
 
-      def perform
+      def run
         name = "codementor-test-#{SecureRandom.hex(5)}"
         email = "#{name}@codementor.io"
         password = "pAssw0rd!"
@@ -37,7 +36,7 @@ module CmQuiz
           }
         }
 
-        @project_api.request(:post, '/users', options)
+        @project_api.request(@verb, @path, options)
       end
     end
   end

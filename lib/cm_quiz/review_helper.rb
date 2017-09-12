@@ -18,8 +18,8 @@ module CmQuiz
       RSpec::Matchers::BuiltIn::BeWithin.new(delta)
     end
 
-    def build_test_result(klass, passed = true, message = nil)
-      [klass.to_s.gsub(/^.*::/, ''), passed, message]
+    def build_test_result(test_case, passed = true, message = nil)
+      [test_case, passed, message]
     end
   end
 end

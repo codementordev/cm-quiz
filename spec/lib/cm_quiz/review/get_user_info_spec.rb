@@ -26,7 +26,7 @@ RSpec.describe CmQuiz::Review::GetUserInfo do
     it "should pass test" do
       test_result = service.perform
 
-      expect(test_result).to eq(['GetUserInfo', true, nil])
+      expect(test_result).to eq(["get /me", true, nil])
       options = {
         headers: {
           'x-access-token' => 'jwt'
