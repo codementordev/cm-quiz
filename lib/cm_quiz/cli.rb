@@ -15,7 +15,7 @@ module CmQuiz
     def test
       endpoint = options[:endpoint]
       puts "Start test #{endpoint}"
-      message = CmQuiz::ReviewQuiz.new('http://localhost:6000').perform
+      message = CmQuiz::ReviewQuiz.new(endpoint).perform
       puts message
     end
   end
