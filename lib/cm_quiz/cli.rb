@@ -15,7 +15,9 @@ module CmQuiz
     def test
       endpoint = options[:endpoint]
       puts "Start test #{endpoint}"
+      puts "please wait..."
       message = CmQuiz::ReviewQuiz.new(endpoint).perform
+
       puts message
     end
   end
