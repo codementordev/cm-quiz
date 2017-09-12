@@ -20,7 +20,8 @@ module CmQuiz
           password: password
         }).create
 
-        res = send_login_user_request(email: email, password: password)
+        @options = build_options(email: email, password: password)
+        res = send_request(@options)
         payload = JSON.parse(res.body)
 
         expect(payload['jwt'].class).to eq(String), '`jwt` should be string'
@@ -29,14 +30,16 @@ module CmQuiz
 
       private
 
-      def send_login_user_request(email:, password:)
+      def build_options(email:, password:)
         options = {
           body: {
             email: email,
             password: password
           }
         }
+      end
 
+      def send_request(options)
         @project_api.request(@verb, @path, options)
       end
     end

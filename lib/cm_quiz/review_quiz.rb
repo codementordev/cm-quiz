@@ -1,3 +1,5 @@
+require 'json'
+
 module CmQuiz
   class ReviewQuiz
     def initialize(endpoint)
@@ -27,14 +29,29 @@ module CmQuiz
     def build_message(test_results, endpoint)
       score, failed_results = arrange_results(test_results)
       example_messages = failed_results.map do |result|
-        m = (result[0].to_s + ": " + result[2].to_s).gsub("\n", ' ')
-        m = m.truncate(120) + '...' if m.size > 120
-        m
+        # m = (result[0].to_s + ": " + result[2].to_s)
+        verb = result[0][:verb].upcase
+        path = result[0][:path]
+        options = result[0][:options]
+        messages = ["#{verb} #{@endpoint}#{path}"]
+        messages << ""
+        messages << "Request options:"
+        messages << ""
+        messages << JSON.pretty_generate(options)
+        messages << ""
+        messages << "Error message:"
+        messages << ""
+        error_message = result[2].to_s
+        error_message = error_message.truncate(500) + '...' if error_message.size > 500
+        messages << error_message
+
+        messages.join("\n")
       end
       text = ([
         "endpoint: #{endpoint}",
         "score: #{score}",
-        "#{test_results.size} examples, #{failed_results.size} failures"
+        "#{test_results.size} examples, #{failed_results.size} failures",
+        ""
       ] + example_messages).join("\n")
       text
     end

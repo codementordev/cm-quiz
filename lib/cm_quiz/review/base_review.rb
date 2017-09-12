@@ -7,19 +7,23 @@ module CmQuiz
 
       def perform
         run
-        build_test_result(test_case_title)
+        build_test_result(test_request)
       rescue RSpec::Expectations::ExpectationNotMetError => e
-        build_test_result(test_case_title, false, e.message)
+        build_test_result(test_request, false, e.message)
       rescue => e
-        build_test_result(test_case_title, false, e.message)
+        build_test_result(test_request, false, e.message)
       end
 
       def run
         raise "Method `run` should be implemented on class #{self.class}"
       end
 
-      def test_case_title
-        "#{@verb} #{@path}"
+      def test_request
+        {
+          verb: @verb,
+          path: @path,
+          options: @options
+        }
       end
     end
   end
