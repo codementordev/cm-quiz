@@ -4,7 +4,7 @@
 ## Installation💻
 Make sure you have a working Ruby environment (2.3 or later is required).
 
-### Install Ruby using [RVM](https://rvm.io/) (If you don't have Ruby or your Ruby is too old)
+### Install Ruby using [RVM](https://rvm.io/) (for those with older versions of Ruby)
 ```sh
 $ ruby -v
 # Make sure your Ruby version is at least 2.3.0, below will demo how to install required Ruby version
@@ -28,3 +28,5 @@ $ gem install cm_quiz
 ```sh
 $ cm-quiz test --endpoint=https://your-test-endpoint.com
 ```
+
+
