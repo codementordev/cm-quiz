@@ -26,6 +26,8 @@ module CmQuiz
 
         expect(payload['jwt'].class).to eq(String), '`jwt` should be string'
         expect(payload['refresh_token'].class).to eq(String), '`refresh_token` should be string'
+      rescue => e
+        build_test_result(self.class, false, e.message)
       end
 
       private

@@ -30,13 +30,13 @@ module CmQuiz
       private
 
       def send_get_user_info_request(jwt:)
-        options = {
+        @options = {
           headers: {
             'x-access-token' => jwt
           }
         }
 
-        @project_api.request(@verb, @path, options)
+        @project_api.request(@verb, @path, @options)
       end
     end
   end
