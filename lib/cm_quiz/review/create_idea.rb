@@ -30,7 +30,7 @@ module CmQuiz
       private
 
       def send_create_idea_request(jwt:, content:, impact:, ease:, confidence:)
-        options = {
+        @options = {
           headers: {
             'x-access-token' => jwt
           },
@@ -42,7 +42,7 @@ module CmQuiz
           }
         }
 
-        @project_api.request(@verb, @path, options)
+        @project_api.request(@verb, @path, @options)
       end
     end
   end

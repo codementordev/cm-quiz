@@ -3,6 +3,7 @@ require 'cm_quiz/review_helper'
 module CmQuiz
   module Review
     class BaseReview
+      attr_reader :verb, :path, :options
       include ReviewHelper
 
       def perform
@@ -16,6 +17,10 @@ module CmQuiz
 
       def run
         raise "Method `run` should be implemented on class #{self.class}"
+      end
+
+      def build_test_result(test_case, passed = true, message = nil)
+        [test_case, passed, message]
       end
 
       def test_request

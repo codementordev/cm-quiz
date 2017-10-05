@@ -28,7 +28,7 @@ module CmQuiz
       private
 
       def send_sign_up_user_request(email:, name:, password:)
-        options = {
+        @options = {
           body: {
             email: email,
             name: name,
@@ -36,7 +36,7 @@ module CmQuiz
           }
         }
 
-        @project_api.request(@verb, @path, options)
+        @project_api.request(@verb, @path, @options)
       end
     end
   end

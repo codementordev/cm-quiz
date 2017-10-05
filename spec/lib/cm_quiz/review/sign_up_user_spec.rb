@@ -18,7 +18,7 @@ describe CmQuiz::Review::SignUpUser do
     it "should pass test" do
       test_result = service.perform
 
-      expect(test_result).to eq(["post /users", true, nil])
+      assert_test_case(service, test_result)
     end
   end
 end

@@ -31,20 +31,7 @@ RSpec.describe CmQuiz::Review::CreateIdea do
     it "should pass test" do
       test_result = service.perform
 
-      expect(test_result).to eq(["post /ideas", true, nil])
-      options = {
-        headers: {
-          'x-access-token' => 'jwt'
-        },
-        body: {
-          content: mock_idea[:content],
-          impact: mock_idea[:impact],
-          ease: mock_idea[:ease],
-          confidence: mock_idea[:confidence]
-        }
-      }
-      args = [:post, '/ideas', options]
-      expect(project_api).to have_received(:request).with(*args)
+      assert_test_case(service, test_result)
     end
   end
 end

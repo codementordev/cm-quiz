@@ -26,6 +26,8 @@ module CmQuiz
 
         res = @project_api.request(:post, '/ideas', options)
         JSON.parse(res.body)
+      rescue => e
+        raise StandardError, "Create test idea failed, reason: #{e.message}"
       end
     end
   end

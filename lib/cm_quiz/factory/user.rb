@@ -22,6 +22,8 @@ module CmQuiz
         res = @project_api.request(:post, '/users', options)
         payload = JSON.parse(res.body)
         [payload['jwt'], payload['refresh_token']]
+      rescue => e
+        raise StandardError, "Create test user failed, reason: #{e.message}"
       end
     end
   end

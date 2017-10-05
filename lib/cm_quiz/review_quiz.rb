@@ -29,11 +29,17 @@ module CmQuiz
     def build_message(test_results, endpoint)
       score, failed_results = arrange_results(test_results)
       example_messages = failed_results.map do |result|
-        # m = (result[0].to_s + ": " + result[2].to_s)
         verb = result[0][:verb].upcase
         path = result[0][:path]
         options = result[0][:options]
-        messages = ["#{verb} #{@endpoint}#{path}"]
+        passed = result[1]
+        messages = ["===#{verb} #{@endpoint}#{path}==="]
+        messages << ""
+        messages << "HTTP method:"
+        messages << verb
+        messages << ""
+        messages << "Url:"
+        messages << "#{@endpoint}#{path}"
         messages << ""
         messages << "Request options:"
         messages << ""
@@ -43,7 +49,7 @@ module CmQuiz
         messages << ""
         error_message = result[2].to_s
         error_message = error_message.truncate(500) + '...' if error_message.size > 500
-        messages << error_message
+        messages << error_message + "\n"
 
         messages.join("\n")
       end

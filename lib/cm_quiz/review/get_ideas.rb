@@ -46,18 +46,8 @@ module CmQuiz
 
       private
 
-      def send_delete_idea_request(jwt:, idea_id:)
-        options = {
-          headers: {
-            'x-access-token' => jwt
-          }
-        }
-
-        @project_api.request(:delete, "/ideas/#{idea_id}", options)
-      end
-
       def send_get_ideas_request(jwt:, page: 1)
-        options = {
+        @options = {
           headers: {
             'x-access-token' => jwt
           },
@@ -66,7 +56,7 @@ module CmQuiz
           }
         }
 
-        @project_api.request(@verb, @path, options)
+        @project_api.request(@verb, @path, @options)
       end
     end
   end
