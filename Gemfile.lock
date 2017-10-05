@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cm_quiz (0.0.2)
+    cm_quiz (0.0.3)
       httparty (~> 0.15.6)
       rspec (~> 3.6)
       thor (~> 0.19.4)
