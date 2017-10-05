@@ -17,9 +17,5 @@ module CmQuiz
     def be_within(delta)
       RSpec::Matchers::BuiltIn::BeWithin.new(delta)
     end
-
-    def build_test_result(test_case, passed = true, message = nil)
-      [test_case, passed, message]
-    end
   end
 end

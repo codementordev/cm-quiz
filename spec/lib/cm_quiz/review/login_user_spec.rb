@@ -18,7 +18,7 @@ RSpec.describe CmQuiz::Review::LoginUser do
     it "should pass test" do
       test_result = service.perform
 
-      expect(test_result).to eq(["post /access-tokens", true, nil])
+      assert_test_case(service, test_result)
     end
   end
 end

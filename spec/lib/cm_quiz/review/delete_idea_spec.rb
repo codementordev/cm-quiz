@@ -34,14 +34,7 @@ RSpec.describe CmQuiz::Review::DeleteIdea do
     it "should pass test" do
       test_result = service.perform
 
-      expect(test_result).to eq(["delete /ideas/:idea_id", true, nil])
-      options = {
-        headers: {
-          'x-access-token' => 'jwt'
-        }
-      }
-      args = [:delete, "/ideas/#{idea_id}", options]
-      expect(project_api).to have_received(:request).with(*args)
+      assert_test_case(service, test_result)
     end
   end
 end
