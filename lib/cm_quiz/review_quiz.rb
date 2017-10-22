@@ -41,9 +41,11 @@ module CmQuiz
         messages << "Url:"
         messages << "#{@endpoint}#{path}"
         messages << ""
-        messages << "Request options:"
-        messages << ""
-        messages << JSON.pretty_generate(options)
+        if !options.nil?
+          messages << "Request options:"
+          messages << ""
+          messages << JSON.pretty_generate(options)
+        end
         messages << ""
         messages << "Error message:"
         messages << ""
