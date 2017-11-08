@@ -50,7 +50,7 @@ module CmQuiz
         messages << "Error message:"
         messages << ""
         error_message = result[2].to_s
-        error_message = error_message.truncate(500) + '...' if error_message.size > 500
+        error_message = error_message.slice(0, 500) + '...' if error_message.size > 500
         messages << error_message + "\n"
 
         messages.join("\n")
