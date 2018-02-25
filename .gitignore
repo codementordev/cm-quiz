@@ -1,8 +1,2 @@
 *.gem
 tmp
-
-# files used for fixing
-# remove after fix
-.ruby-version
-dev.log
-Rakefile
