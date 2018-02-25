@@ -19,9 +19,7 @@ module CmQuiz
 
         send_delete_idea_request(jwt: jwt, idea_id: idea_id)
 
-        res = send_get_ideas_request(jwt: jwt)
-        res_hash = JSON.parse(res.body)
-        expect(res_hash.size).to eq(0)
+        expect(update_deleted_record(jwt, idea_id)).to eq("Invalid Idea id")
       end
 
       private
@@ -37,14 +35,38 @@ module CmQuiz
         @project_api.request(:delete, @path, @options)
       end
 
-      def send_get_ideas_request(jwt:)
-        options = {
+      def send_update_idea_request(jwt:, idea_id:, content: nil, impact: nil,
+        ease: nil, confidence: nil)
+
+        @options = {
           headers: {
             'x-access-token' => jwt
+          },
+          body: {
+            content: content,
+            impact: impact,
+            ease: ease,
+            confidence: confidence
           }
         }
+        @path = "/ideas/#{idea_id}"
 
-        @project_api.request(:get, "/ideas", options)
+        @project_api.request(:put, @path, @options)
+      end
+
+      def update_deleted_record(jwt, idea_id)
+        begin
+          send_update_idea_request({
+            jwt: jwt,
+            idea_id: idea_id,
+            content: 'test-updated-content',
+            impact: 6,
+            ease: 7,
+            confidence: 8
+          })
+        rescue
+          "Invalid Idea id"
+        end
       end
     end
   end
