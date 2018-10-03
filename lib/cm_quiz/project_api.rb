@@ -21,7 +21,7 @@ module CmQuiz
       url = @endpoint + path
 
       query = options[:query]
-      body = options[:body].to_json
+      body = options[:body]&.to_json
       headers = { 'Content-Type' => 'application/json' }.merge(options[:headers] || {})
 
       http_options = {
