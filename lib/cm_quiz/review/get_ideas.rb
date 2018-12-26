@@ -39,7 +39,7 @@ module CmQuiz
           expect(item['confidence']).to eq(idea_payload['confidence'])
           average_score = (idea_payload['impact'] + idea_payload['ease'] + idea_payload['confidence'])/ 3.0
           expect(item['average_score']).to be_within(0.1).of(average_score)
-          diff = Time.now - Time.new(item['created_at'])
+          diff = Time.now - Time.at(item['created_at'])
           expect(diff).to be <= VALID_TIME_DIFF
         end
       end
