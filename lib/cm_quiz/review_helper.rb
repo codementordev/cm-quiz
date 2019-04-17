@@ -14,6 +14,10 @@ module CmQuiz
       RSpec::Matchers::BuiltIn::Be.new
     end
 
+    def be_nil
+      RSpec::Matchers::BuiltIn::BeNil.new
+    end
+
     def be_within(delta)
       RSpec::Matchers::BuiltIn::BeWithin.new(delta)
     end
