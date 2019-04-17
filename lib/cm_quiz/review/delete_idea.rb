@@ -21,7 +21,8 @@ module CmQuiz
 
         res = send_get_ideas_request(jwt: jwt)
         res_hash = JSON.parse(res.body)
-        expect(res_hash.size).to eq(0)
+        idea = res_hash.find { |item| item['id'] == idea_id }
+        expect(idea).to be_nil
       end
 
       private
