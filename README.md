@@ -30,3 +30,28 @@ $ cm-quiz test --endpoint=https://your-test-endpoint.com
 ```
 
 
+## Using Docker
+
+If you want to use it as a container and not install ruby dependencies in your local environment, you can build a docker image and run a container.
+
+### Build the image
+
+```sh
+$ docker build -t cm-quiz .
+```
+
+### Run the container 
+
+Typical way to run the container
+
+```sh
+$ docker run cm-quiz --endpoint=https://your-test-endpoint.com
+```
+
+If you're testing on your localhost, then add --net="host" to access from the container
+
+```sh
+$ docker run --net="host" cm-quiz --endpoint=http://localhost:5000
+```
+
+
